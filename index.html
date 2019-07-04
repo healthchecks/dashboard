@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hello</title>
+    <style>
+        html, body {
+            background: #000;
+            color: #FFF;
+            font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+            height: 100%;
+            margin: 0;
+        }
+
+        .panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 8px;
+            padding: 8px;
+
+        }
+
+        .panel > h1 {
+            grid-column-start: 1;
+            grid-column-end: -1;
+            margin: 24px 0 12px 0;
+            font-size: 20px;
+        }
+
+        .panel > div {
+            background: #AAA;
+            color: #000;
+            padding: 8px 8px 32px 8px;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .panel > div .name {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .panel > div .lp {
+            position: absolute;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .panel > div .lp {
+            bottom: 8px;
+            left: 8px;
+        }
+
+        .panel > div.status-up {
+            color: #FFF;
+            background: #263026;
+        }
+
+        .panel > div.status-grace {
+            color: #000;
+            background: #FFB300;
+        }
+
+        .panel > div.status-down {
+            color: #000;
+            background: #ff3929;
+        }
+
+        #check-template {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1 data-readonly-key="uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0">Demo Project</h1>
+        <h1 data-readonly-key="UKsc30GIblRMKKN4BEPXcBNLa8bx4grU">Uptime Checkers</h1>
+    </div>
+
+    <div id="check-template">
+        <div class="name"></div>
+        <div class="lp"></div>
+    </div>
+
+    <script>
+        function fetch(key, callback) {
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        callback(JSON.parse(httpRequest.responseText));
+                    }
+                }
+            };
+            httpRequest.open("GET", "https://healthchecks.io/api/v1/checks/");
+            httpRequest.setRequestHeader("X-Api-Key", key);
+            httpRequest.send();
+        }
+
+        function timeSince(date) {
+            var v = Math.floor((new Date() - date) / 1000);
+
+            if (v < 60) { // v is seconds
+                return v + " second" + (v == 1 ? "" : "s");
+            }
+
+
+            v = Math.floor(v / 60); // v is now minutes
+            if (v < 60) {
+                return v + " minute" + (v == 1 ? "" : "s");
+            }
+
+            v = Math.floor(v / 60); // v is now hours
+            if (v < 24) {
+                return v + " hour" + (v == 1 ? "" : "s");
+            }
+
+
+            v = Math.floor(v / 24); // v is now days
+            return v + " day" + (v == 1 ? "" : "s");
+         };
+
+        var template = document.getElementById("check-template");
+        function updatePanel(node) {
+            fetch(node.dataset.readonlyKey, function(doc) {
+                var tag = node.dataset.readonlyKey.substr(0, 4);
+                var fragment = document.createDocumentFragment();
+
+                // Sort returned checks by name:
+                var sorted = doc.checks.sort(function(a, b) {
+                    return a.name.localeCompare(b.name)
+                });
+
+                for (var i=0, item; item=sorted[i]; i++) {
+                    var div = template.cloneNode(true);
+                    div.removeAttribute("id");
+                    div.setAttribute("class", "status-" + item.status);
+                    div.setAttribute("tag", tag);
+                    div.querySelector(".name").textContent = item.name || "unnamed";
+                    if (item.last_ping) {
+                        var s = timeSince(Date.parse(item.last_ping)) + " ago";
+                        div.querySelector(".lp").textContent = s;
+                    }
+                    fragment.appendChild(div);
+                }
+
+                document.querySelectorAll('[tag="' + tag +'"]').forEach(function(n) {
+                    n.remove();
+                });
+
+                node.parentNode.insertBefore(fragment, node.nextSibling);
+            });
+        }
+
+
+        document.querySelectorAll("h1").forEach(updatePanel);
+        setInterval(function() {
+            document.querySelectorAll("h1").forEach(updatePanel);
+        }, 5000);
+
+    </script>
+</body>
+</html>
