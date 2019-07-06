@@ -4,80 +4,118 @@
     <meta charset="utf-8">
     <title>Healthchecks.io</title>
     <style>
-        html, body {
+        /* Colors, dark theme */
+
+        .theme-dark {
             background: #000;
             color: #FFF;
+        }
+
+        .theme-dark #panel > div {
+            background: #AAA;
+            color: #000;
+        }
+
+        .theme-dark #panel > div.status-up {
+            color: #FFF;
+            background: #263026;
+        }
+
+        .theme-dark #panel > div.status-grace {
+            color: #000;
+            background: #FFB300;
+        }
+
+        .theme-dark #panel > div.status-down {
+            color: #000;
+            background: #ff3929;
+        }
+
+        /* Colors, light theme */
+
+        .theme-light {
+            background: #EEE;
+            color: #333;
+        }
+
+        .theme-light #panel > div {
+            background: #E0E0E0;
+            color: #000;
+        }
+
+
+        .theme-light #panel > div.status-up {
+            color: #000;
+            background: #FFF;
+        }
+
+        .theme-light #panel > div.status-grace {
+            color: #000;
+            background: #FFAB00;
+        }
+
+        .theme-light #panel > div.status-down {
+            color: #FFF;
+            background: #D81818;
+        }
+
+
+        /* Layout and font */
+
+        html, body {
             font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
             height: 100%;
             margin: 0;
         }
 
-        .panel {
+        #panel {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             grid-gap: 8px;
             padding: 8px;
-
         }
 
-        .panel > h1 {
+        #panel > h1 {
             grid-column-start: 1;
             grid-column-end: -1;
-            margin: 24px 0 12px 0;
+            margin: 12px 0;
             font-size: 20px;
         }
 
-        .panel > div {
-            background: #AAA;
-            color: #000;
+        #panel > div {
             padding: 8px 8px 32px 8px;
             font-size: 18px;
             position: relative;
         }
 
-        .panel > div .name {
+        #panel > div .name {
             text-overflow: ellipsis;
             overflow: hidden;
         }
 
-        .panel > div .lp {
+        #panel > div .lp {
             position: absolute;
             font-size: 13px;
             opacity: 0.8;
         }
 
-        .panel > div .lp {
+        #panel > div .lp {
             bottom: 8px;
             left: 8px;
         }
 
-        .panel > div.status-up {
-            color: #FFF;
-            background: #263026;
-        }
-
-        .panel > div.status-grace {
-            color: #000;
-            background: #FFB300;
-        }
-
-        .panel > div.status-down {
-            color: #000;
-            background: #ff3929;
-        }
-
-        #check-template {
+        .check-template {
             display: none;
         }
     </style>
 </head>
-<body>
-    <div class="panel">
+<body class="theme-light">
+    <div id="panel">
         <h1 data-readonly-key="uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0">Demo Project</h1>
         <h1 data-readonly-key="UKsc30GIblRMKKN4BEPXcBNLa8bx4grU">Uptime Checkers</h1>
     </div>
 
-    <div id="check-template">
+    <div class="check-template">
         <div class="name"></div>
         <div class="lp"></div>
     </div>
@@ -120,38 +158,36 @@
             return v + " day" + (v == 1 ? "" : "s");
          };
 
-        var template = document.getElementById("check-template");
+        var template = document.querySelector(".check-template");
         function updatePanel(node) {
             fetch(node.dataset.readonlyKey, function(doc) {
-                var tag = node.dataset.readonlyKey.substr(0, 4);
-                var fragment = document.createDocumentFragment();
+                var tag = node.dataset.readonlyKey.substr(0, 6);
 
                 // Sort returned checks by name:
                 var sorted = doc.checks.sort(function(a, b) {
                     return a.name.localeCompare(b.name)
                 });
 
-                for (var i=0, item; item=sorted[i]; i++) {
+                var fragment = document.createDocumentFragment();
+                sorted.forEach(function(item) {
                     var div = template.cloneNode(true);
-                    div.removeAttribute("id");
-                    div.setAttribute("class", "status-" + item.status);
-                    div.setAttribute("tag", tag);
+                    div.setAttribute("class", tag + " status-" + item.status);
                     div.querySelector(".name").textContent = item.name || "unnamed";
                     if (item.last_ping) {
                         var s = timeSince(Date.parse(item.last_ping)) + " ago";
                         div.querySelector(".lp").textContent = s;
                     }
                     fragment.appendChild(div);
-                }
+                });
 
-                document.querySelectorAll('[tag="' + tag +'"]').forEach(function(n) {
-                    n.remove();
+
+                document.querySelectorAll('.' + tag).forEach(function(element) {
+                    element.remove();
                 });
 
                 node.parentNode.insertBefore(fragment, node.nextSibling);
             });
         }
-
 
         document.querySelectorAll("h1").forEach(updatePanel);
         setInterval(function() {
