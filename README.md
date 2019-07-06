@@ -33,15 +33,15 @@ Netlify, ...), or simply open it as a local file in your browser.
 ## Security
 
 If you decide to make your dashboard public, your read-only API key will
-become public as well. Using this key, anybody can fetch basic information about
-checks in your project. This includes, for each check:
+become public as well. Using the read-only API key, anybody can fetch basic information
+about checks in your project. This includes, for each check:
 
 * name, **tags and description** (even though tags and descriptions are currently not
 being shown on the dashboard)
 * check's schedule (period, grace time, cron expression + timezone)
 * current status (new / up / down / paused)
-* time of the last ping
-* time of when the next ping is expected
+* precise time of the last ping
+* precise time of when the next ping is expected
 * total number of pings the check has received
 
 Here are the things that the read-only API keys *cannot* do:
