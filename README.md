@@ -26,7 +26,7 @@ account.
 * Fork the repository.
 * Edit `index.html` and replace the API keys in `<h1>` tags.
 * Optionally, you can tweak the colors, font sizes and layout.
-* Out the `index.html` file on a web server (Github pages, S3 bucket.
+* Publish the `index.html` file to a web server (Github pages, S3 bucket.
 Netlify, ...), or simply open it as a local file in your browser.
 
 
