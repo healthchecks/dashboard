@@ -34,29 +34,27 @@
         /* Colors, light theme */
 
         .theme-light {
-            background: #EEE;
+            background: #FFF;
             color: #333;
         }
 
         .theme-light #panel > div {
-            background: #E0E0E0;
-            color: #000;
-        }
-
-
-        .theme-light #panel > div.status-up {
             color: #000;
             background: #FFF;
+            border: 2px solid #DDD;
         }
+
 
         .theme-light #panel > div.status-grace {
             color: #000;
             background: #FFAB00;
+            border: none;
         }
 
         .theme-light #panel > div.status-down {
             color: #FFF;
             background: #D81818;
+            border: none;
         }
 
 
@@ -188,6 +186,7 @@
                 node.parentNode.insertBefore(fragment, node.nextSibling);
             });
         }
+
 
         document.querySelectorAll("h1").forEach(updatePanel);
         setInterval(function() {
