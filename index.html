@@ -159,7 +159,7 @@
         var template = document.querySelector(".check-template");
         function updatePanel(node) {
             fetch(node.dataset.readonlyKey, function(doc) {
-                var tag = node.dataset.readonlyKey.substr(0, 6);
+                var tag = "TAG_" + node.dataset.readonlyKey.substr(0, 6);
 
                 // Sort returned checks by name:
                 var sorted = doc.checks.sort(function(a, b) {
