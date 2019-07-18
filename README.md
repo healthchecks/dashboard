@@ -27,7 +27,7 @@ account.
 * Edit `index.html` and replace the API keys in `<h1>` tags. Be sure to use the
 **read-only** API keys!
 * Optionally, you can tweak the colors, font sizes and layout.
-* Publish the `index.html` file to a web server (Github pages, S3 bucket.
+* Publish the `index.html` file to a web server (Github pages, S3 bucket,
 Netlify, ...), or simply open it as a local file in your browser.
 
 ## Security
