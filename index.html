@@ -21,6 +21,12 @@
             background: #263026;
         }
 
+        .theme-dark #panel > div.status-started {
+            color: #FFF;
+            background: #263026;
+        }
+
+
         .theme-dark #panel > div.status-grace {
             color: #000;
             background: #FFB300;
@@ -29,6 +35,10 @@
         .theme-dark #panel > div.status-down {
             color: #000;
             background: #ff3929;
+        }
+
+        .theme-dark .spinner:after {
+            border-color: #4c604c transparent #4c604c transparent;
         }
 
         /* Colors, light theme */
@@ -44,7 +54,6 @@
             border: 2px solid #DDD;
         }
 
-
         .theme-light #panel > div.status-grace {
             color: #000;
             background: #FFAB00;
@@ -57,6 +66,44 @@
             border: none;
         }
 
+        .theme-light .spinner:after {
+            border-color: #DDD transparent #DDD transparent;
+        }
+
+
+        /* Spinner from https://loading.io/css/ */
+        .spinner {
+            display: none;
+        }
+
+        div.status-started .spinner {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            margin-top: -18px;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+        }
+        .spinner:after {
+            content: " ";
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 1px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            animation: lds-dual-ring 1.25s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Layout and font */
 
@@ -116,6 +163,7 @@
     <div class="check-template">
         <div class="name"></div>
         <div class="lp"></div>
+        <div class="spinner"></div>
     </div>
 
     <script>
