@@ -30,6 +30,21 @@ account.
 * Publish the `index.html` file to a web server (Github pages, S3 bucket,
 Netlify, ...), or simply open it as a local file in your browser.
 
+## Specifying API Keys in the URL
+
+As an alternative to editing `index.html`, the projects and their API keys can be
+specified in the URL. Put them in the fragment identifier (after the "#" character) as
+amperstand-delimited "apikey=title" pairs. Example:
+
+	index.html#UKsc30GIblRMKKN4BEPXcBNLa8bx4grU=Monitoring&uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0=Demo
+
+The light theme is used by default, but the dark theme can also be specified
+via the URL:
+
+
+	index.html#theme=dark
+
+
 ## Security
 
 If you decide to make your dashboard public, your read-only API key will
