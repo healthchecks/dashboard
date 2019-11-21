@@ -157,7 +157,10 @@
 <body class="theme-light">
     <div id="panel">
         <h1 data-readonly-key="uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0">Demo Project</h1>
+<!--
         <h1 data-readonly-key="UKsc30GIblRMKKN4BEPXcBNLa8bx4grU">Uptime Checkers</h1>
+        <h1 data-readonly-key="some_other_api_key">Panel name</h1>
+-->
     </div>
 
     <div class="check-template">
@@ -235,7 +238,16 @@
             });
         }
 
-
+        var url = window.location.hash;
+        if (url) {
+            url = url.substr(1);
+            var urlPart = url.split(":");
+            document.querySelectorAll("h1")[0].dataset.readonlyKey = urlPart[0];
+            var title = urlPart[1];
+            if (title) {
+              document.querySelectorAll("h1")[0].innerHTML = title;
+            }
+        }
         document.querySelectorAll("h1").forEach(updatePanel);
         setInterval(function() {
             document.querySelectorAll("h1").forEach(updatePanel);
