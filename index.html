@@ -157,10 +157,7 @@
 <body class="theme-light">
     <div id="panel">
         <h1 data-readonly-key="uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0">Demo Project</h1>
-<!--
         <h1 data-readonly-key="UKsc30GIblRMKKN4BEPXcBNLa8bx4grU">Uptime Checkers</h1>
-        <h1 data-readonly-key="some_other_api_key">Panel name</h1>
--->
     </div>
 
     <div class="check-template">
@@ -238,14 +235,28 @@
             });
         }
 
-        var url = window.location.hash;
-        if (url) {
-            url = url.substr(1);
-            var urlPart = url.split(":");
-            document.querySelectorAll("h1")[0].dataset.readonlyKey = urlPart[0];
-            var title = urlPart[1];
-            if (title) {
-              document.querySelectorAll("h1")[0].innerHTML = title;
+        if (window.location.hash) {
+            var panel;
+
+            var pairs = window.location.hash.substr(1).split("&");
+            for (var i=0, pair; pair=pairs[i]; i++) {
+                if (pair.indexOf("theme=") != -1) {
+                    document.body.setAttribute("class", pair.replace("=", "-"));
+                    continue;
+                }
+
+                var parts = pair.split("=");
+                var h1 = document.createElement("H1");
+                h1.dataset.readonlyKey = parts[0];
+                if (parts[1]) {
+                    h1.innerText = decodeURIComponent(parts[1]);
+                }
+
+                if (!panel) {
+                    panel = document.getElementById("panel");
+                    panel.innerHTML = "";
+                }
+                panel.appendChild(h1);
             }
         }
         document.querySelectorAll("h1").forEach(updatePanel);
