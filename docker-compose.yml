@@ -1,0 +1,4 @@
+dashboard:
+  build: .
+  ports:
+    - "80:2015"
