@@ -1,3 +1,5 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/healthchecks/dashboard)](https://hub.docker.com/r/healthchecks/dashboard)
+
 # Healthchecks.io Status Dashboard
 
 A standalone dashboard page showing the status of the checks in your [Healthchecks.io](https://healthchecks.io)
@@ -64,3 +66,14 @@ Here are the things that the read-only API keys *cannot* do:
 * the ping URLs are not exposed. You are not risking unexpected pings from random visitors
 * no write access: cannot update or delete the existing checks, cannot create new checks
 in your project
+
+
+## Docker image
+
+There is an official [Healthchecks.io Status Dashboard Docker image](https://hub.docker.com/r/healthchecks/dashboard) on Docker Hub ready to use. The image is [automatically built](https://docs.docker.com/docker-hub/builds/) on each commit.
+
+The image starts a lightweight [Caddy Webserver](https://caddyserver.com/) with the dashboard at the webserver's root.
+The example below starts a one-off, intercative container serving on port 8080 (`CTRL+C` to stop it):
+```
+$ docker run --rm -it -p 8080:2015 healthchecks/dashboard
+```
