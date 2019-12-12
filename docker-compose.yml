@@ -1,4 +1,6 @@
 dashboard:
+  container_name: healthchecks_dashboard
   build: .
+#  image: healthchecks/dashboard
   ports:
     - "80:2015"
