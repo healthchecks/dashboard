@@ -70,10 +70,14 @@ in your project
 
 ## Docker image
 
-There is an official [Healthchecks.io Status Dashboard Docker image](https://hub.docker.com/r/healthchecks/dashboard) on Docker Hub ready to use. The image is [automatically built](https://github.com/healthchecks/dashboard/actions/workflows/publish_docker_image.yml) on each commit.
+There is an official [Healthchecks.io Status Dashboard Docker image](https://hub.docker.com/r/healthchecks/dashboard)
+on Docker Hub ready to use. The image is [automatically built](https://github.com/healthchecks/dashboard/actions/workflows/publish_docker_image.yml)
+on each commit.
 
-The image starts a lightweight [Caddy Webserver](https://caddyserver.com/) with the dashboard at the webserver's root.
-The example below starts a one-off, interactive container serving on port 8080 (`CTRL+C` to stop it):
+The image starts a lightweight [Caddy 2 Webserver](https://caddyserver.com/) with the
+dashboard at the webserver's root. The example below starts a one-off, interactive
+container serving on port 8080 (`CTRL+C` to stop it):
+
 ```
-$ docker run --rm -it -p 8080:2015 healthchecks/dashboard
+$ docker run --rm -it -p 8080:80 healthchecks/dashboard
 ```

@@ -1,3 +1,3 @@
-FROM abiosoft/caddy
+FROM caddy:2
 
-COPY index.html /srv/
+COPY index.html /usr/share/caddy/

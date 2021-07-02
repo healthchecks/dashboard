@@ -3,4 +3,4 @@ dashboard:
   build: .
 #  image: healthchecks/dashboard
   ports:
-    - "80:2015"
+    - "80:80"
