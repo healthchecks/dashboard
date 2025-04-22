@@ -1,6 +1,7 @@
-dashboard:
-  container_name: healthchecks_dashboard
-  build: .
-#  image: healthchecks/dashboard
-  ports:
-    - "80:80"
+services:
+  dashboard:
+    container_name: healthchecks_dashboard
+    build: .
+  #  image: healthchecks/dashboard
+    ports:
+      - "80:80"
