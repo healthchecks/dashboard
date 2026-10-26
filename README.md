@@ -16,11 +16,11 @@ account.
 
 ## Dark Theme
 
-![Dark THeme](/docs/theme-dark.png?raw=true "Dark Theme")
+![Dark Theme](/docs/theme-dark.png?raw=true "Dark Theme")
 
 ## Light Theme
 
-![Light THeme](/docs/theme-light.png?raw=true "Light Theme")
+![Light Theme](/docs/theme-light.png?raw=true "Light Theme")
 
 
 ## How To Use
@@ -36,7 +36,7 @@ Netlify, ...), or simply open it as a local file in your browser.
 
 As an alternative to editing `index.html`, the projects and their API keys can be
 specified in the URL. Put them in the fragment identifier (after the "#" character) as
-amperstand-delimited "apikey=title" pairs. Example:
+ampersand-delimited "apikey=title" pairs. Example:
 
 	index.html#UKsc30GIblRMKKN4BEPXcBNLa8bx4grU=Monitoring&uKatH7z6dSuN2Zyf1luRCmPDkw3fw2U0=Demo
 
